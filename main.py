@@ -109,10 +109,8 @@ interval = 24*60*60  # Interval is 24 hours (in seconds)
 
 # Run the script every day for the specified number of days
 
-@app.route('/plot')
+@app.route('/malta-inflation')
 def serve_plot():
-    # Fetch the latest price data
-    scrape_prices()
 
     # Read the Excel file into a pandas DataFrame
     excel_file = 'price_data.xlsx'
