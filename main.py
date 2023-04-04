@@ -124,7 +124,7 @@ def serve_plot():
     return send_file(buffer, mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8083)
+    app.run(debug=True, port=8083, host="0.0.0.0")
 
 start_time = time.time()
 for _ in range(num_days):
