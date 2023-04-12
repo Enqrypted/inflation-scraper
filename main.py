@@ -10,7 +10,7 @@ from io import BytesIO
 from flask import Flask, send_file
 
 app = Flask(__name__)
-
+#comment test
 def plot_prices(df):
     # Plot the data
     fig, ax = plt.subplots(figsize=(10, 6))
