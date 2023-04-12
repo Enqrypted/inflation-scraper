@@ -8,6 +8,7 @@ import time
 import matplotlib.pyplot as plt
 from io import BytesIO
 from flask import Flask, send_file
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 #comment test
@@ -123,12 +124,16 @@ def serve_plot():
     # Serve the buffer as a PNG image
     return send_file(buffer, mimetype='image/png')
 
-if __name__ == '__main__':
-    app.run(debug=True, port=8083, host="0.0.0.0")
-
-start_time = time.time()
-for _ in range(num_days):
+def run_scrape_prices():
     scrape_prices()
-    time.sleep(interval - ((time.time() - start_time) % interval))
+    print("Scraping completed.")
+
+if __name__ == '__main__':
+    scheduler = BackgroundScheduler()
+    # Schedule the 'run_scrape_prices' function to run every 24 hours
+    scheduler.add_job(run_scrape_prices, 'interval', hours=24)
+    scheduler.start()
+    
+    app.run(debug=True, port=8083, host="0.0.0.0")
 
 
